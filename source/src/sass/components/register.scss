@@ -1,0 +1,83 @@
+.register{
+    $self: &;
+
+    background-color: $bg_transparent;
+    border-radius: 1em;
+    padding: 1em;
+    line-height: 1.4;
+    position: relative;
+    min-width: 9em;
+    flex-shrink: 0;
+
+    &__name{
+        font-size: 1.1em;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 7em;
+        white-space: nowrap;
+        min-width: 3em;
+    }
+
+    &__counter{
+        font-size: 2em;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    &__limit{
+        font-size: 0.6em;
+        margin-left: 0.5em;
+        opacity: 0.7;
+        font-weight: 300;
+    }
+
+    &__chart{
+        float: right;
+        height: 3.9em;
+        display: flex;
+        align-items: end;
+        padding-left: 1em;
+
+        > div{
+            width: 0.4em;
+            margin-left: 0.6em;
+            background-color: #fff;
+            border-radius: 0.2em;
+        }
+    }
+
+    &--tag{
+        padding: 0.6em 1em;
+        min-width: auto;
+
+        #{ $self }__counter{
+            font-size: 1.3em;
+        }
+    }
+
+    &--icon{
+        #{ $self }__name{
+            svg{
+                width: 1.7em;
+                height: 1.7em;
+                margin-right: 0.5em;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    &.focus{
+        &::after{
+            content: "";
+            position: absolute;
+            top: -0.5em;
+            left: -0.5em;
+            right: -0.5em;
+            bottom: -0.5em;
+            border: 0.3em solid #fff;
+            border-radius: 1.4em;
+            z-index: -1;
+            pointer-events: none;
+        }
+    }
+}

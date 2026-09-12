@@ -1,0 +1,163 @@
+@mixin no-glass{
+    @media screen and (max-width: $media_xm) {
+        .selectbox__content,
+        .modal__content,
+        .settings__content{
+            background-color: $bg_primary;
+        }
+    }
+}
+
+body.glass--style{
+    .selectbox__content,
+    .settings__content,
+    .settings-input__content,
+    .modal__content,
+    .settings-input--free,
+    .navigation-bar__body,
+    .discuss-rules,
+    .bell__item,
+    .media-loading__status{
+        background-color: $bg_glass;
+        backdrop-filter: blur(1.6em);
+    }
+
+    @include no-glass;
+
+    .selectbox-item,
+    .settings-folder,
+    .settings-param{
+        &.focus{
+            background-color: #fff;
+            color: #000;
+
+            .settings-folder__icon,
+            .selectbox-item__checkbox{
+                filter: invert(1);
+            }
+        }
+    }
+
+    .selectbox-item.focus{
+        &::after{
+            border-color: #000;
+        }
+    }
+
+    .settings-param-title > span{
+        color: rgba(255,255,255,0.4)
+    }
+
+    .settings-input__links{
+        background: rgba(221, 221, 221, 0.06);
+    }
+
+    .settings-input__input{
+        border: 0;
+    }
+
+    .settings-input--free{
+        .settings-input__content{
+            background: transparent;
+            backdrop-filter: none;
+        }
+    }
+
+    .torrent-serial{
+        background: rgb(132,135,137,0.15);
+
+        &.focus{
+            background: rgb(255,255,255,0.35);
+        }
+    }
+
+    .card-more__box,
+    .bookmarks-folder__layer{
+        background: $bg_transparent;
+    }
+
+    &-opacity{
+        &--medium{
+            .selectbox__content,
+            .settings__content,
+            .settings-input__content,
+            .modal__content,
+            .settings-input--free,
+            .navigation-bar__body,
+            .bell__item{
+                background-color: rgba(70,70,70,0.45);
+            }
+
+            @include no-glass;
+        }
+
+        &--blacked{
+            .selectbox__content,
+            .settings__content,
+            .settings-input__content,
+            .modal__content,
+            .settings-input--free,
+            .navigation-bar__body,
+            .bell__item{
+                background-color: rgba(56,56,56,0.7);
+            }
+
+            @include no-glass;
+        }
+    }
+
+    &.platform--browser,
+    &.platform--nw,
+    &.platform--apple{
+        .card .card__icons-inner,
+        .card .card__marker,
+        .card .card__vote,
+        .card .card-watched,
+        .head__action:not(.focus){
+            background-color: rgba(70,70,70,0.3);
+            backdrop-filter: blur(1em);
+        }
+
+        .card-watched__item{
+            color: #fff;
+
+            &:nth-child(2){
+                opacity: 0.8;
+            }
+            &:nth-child(3){
+                opacity: 0.6;
+            }
+            &:nth-child(4){
+                opacity: 0.4;
+            }
+            &:nth-child(5){
+                opacity: 0.2;
+            }
+        }
+    }
+}
+
+body.platform--browser,
+body.platform--nw,
+body.true--mobile,
+body.glass--style.platform--apple,
+body.glass--style.platform--apple_tv,
+body.glass--style.platform--android{
+    .player:not(.iptv){
+        .player-panel__box-buttons,
+        .player-panel__playpause:not(.focus),
+        .player-info__values .value--size span{
+            backdrop-filter: blur(1em);
+        }
+    }
+
+    .normalization,
+    .player-video__paused,
+    .player-video__loader,
+    .player-video__noise-text,
+    .player-panel__time,
+    .player-skip,
+    .player-chat__body{
+        backdrop-filter: blur(1em);
+    }
+}

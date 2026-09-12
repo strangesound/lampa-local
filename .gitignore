@@ -1,0 +1,11 @@
+secrets/
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+._*
