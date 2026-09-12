@@ -97,8 +97,12 @@ function is(need){
  * Платформы у которых есть возможность изменить плеер
  * @returns Boolean
  */
+function windowsBrowser(){
+    return /Windows NT/i.test(navigator.userAgent) && !desktop()
+}
+
 function any(){
-    return is('tizen') || is('webos') || is('android') || is('netcast') || is('orsay') || is('apple') || is('apple_tv') || macOS() || desktop()
+    return is('tizen') || is('webos') || is('android') || is('netcast') || is('orsay') || is('apple') || is('apple_tv') || macOS() || desktop() || windowsBrowser()
 }
 
 /**
@@ -275,6 +279,7 @@ export default {
     screen,
     install,
     macOS,
+    windowsBrowser,
     chromeVersion,
     widgetVersion
 }

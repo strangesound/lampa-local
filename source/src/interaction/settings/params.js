@@ -81,6 +81,15 @@ function init(){
 
         trigger('internal_torrclient', false)
     }
+    else if(Platform.windowsBrowser()){
+        ['player', 'player_iptv', 'player_torrent'].forEach(name=>{
+            select(name, {
+                inner: '#{settings_param_player_inner}',
+                vlc_playlist: 'VLC (M3U8)',
+                potplayer: 'PotPlayer'
+            }, 'inner')
+        })
+    }
     else if(Platform.desktop() && !Platform.macOS()){
         select('player',{
             'inner': '#{settings_param_player_inner}',
