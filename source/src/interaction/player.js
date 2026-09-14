@@ -504,11 +504,10 @@ function start(data, need, inner){
 
     if(data.launch_player) launch_player = data.launch_player
 
-    if(launch_player == 'lampa' || launch_player == 'inner' || Video.verifyTube(data.url)) launchInner()
-    else if(Platform.windowsBrowser() && ['vlc_playlist', 'potplayer'].indexOf(Storage.field(player_need)) !== -1){
-        WindowsPlayer.open(data, Storage.field(player_need), launchInner,
-            ()=>listener.send('external', data), ()=>listener.send('destroy', {}))
+    if(Platform.windowsBrowser() && !Video.verifyTube(data.url)){
+        WindowsPlayer.open(data, ()=>listener.send('external', data), ()=>listener.send('destroy', {}))
     }
+    else if(launch_player == 'lampa' || launch_player == 'inner' || Video.verifyTube(data.url)) launchInner()
     else if(Platform.is('apple')){
         launchExternalPlayer(data, player_need, {
             vlc:        'vlc://${furl}',

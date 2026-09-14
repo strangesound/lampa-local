@@ -83,11 +83,9 @@ function init(){
     }
     else if(Platform.windowsBrowser()){
         ['player', 'player_iptv', 'player_torrent'].forEach(name=>{
-            select(name, {
-                inner: '#{settings_param_player_inner}',
-                vlc_playlist: 'VLC (M3U8)',
-                potplayer: 'PotPlayer'
-            }, 'inner')
+            select(name, {potplayer: 'PotPlayer'}, 'potplayer')
+            // Migrate previously selected VLC/internal players on Windows only.
+            if(Storage.get(name) !== 'potplayer') Storage.set(name, 'potplayer')
         })
     }
     else if(Platform.desktop() && !Platform.macOS()){

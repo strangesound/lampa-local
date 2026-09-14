@@ -92,14 +92,12 @@ Upstream dependencies are inherited and include older packages. Review upstream 
 
 No private API keys, local deployment addresses, SSH settings, user histories or original working-directory Git history are included in this repository.
 
-## Windows browser players
+## Windows browser playback
 
-In Settings → Player, Windows browsers can select **VLC (M3U8)** or **PotPlayer** for torrents, ordinary videos and IPTV. Select a video to open the handoff dialog.
+Windows browsers open HTTP video streams directly in **PotPlayer**, without an additional Lampa dialog. Existing VLC/internal player preferences are migrated to PotPlayer, and player selection fields are hidden on Windows. YouTube playback retains its built-in handling.
 
-- VLC: download `lampa.m3u8`, then open it with VLC (Open with → VLC). This is a small stream playlist, not a downloaded movie.
-- PotPlayer: use Open PotPlayer. The Windows `potplayer://` association must be installed; the browser may ask to open the app. If nothing opens, use Download playlist and open the file with PotPlayer.
-- Both dialogs include a selectable stream URL and a Play in browser fallback.
+The Windows `potplayer://` association must be installed. The browser may still ask permission to open the application; this permission belongs to the browser. The torrent file list stays usable after launching the player or cancelling the browser prompt.
 
 No registry changes, browser extensions or executable downloads are performed. External player progress is not synchronized back to Lampa. macOS/iOS and native desktop app choices are preserved.
 
-Run `node tests/windows-player.cjs` for Windows selection and handoff tests. Actual launch of installed Windows applications requires testing on that PC.
+Run `node tests/windows-player.cjs` for Windows defaults, preference migration and handoff regression tests. Actual launch of installed Windows applications requires testing on that PC.

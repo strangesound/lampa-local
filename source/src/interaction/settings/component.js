@@ -35,7 +35,7 @@ function Component(name, component_params = {}){
             comp.find('.is--android').remove()
         }
         
-        if(!Platform.any()){
+        if(!Platform.any() || Platform.windowsBrowser()){
             comp.find('.is--player').remove()
         }
 
