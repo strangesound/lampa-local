@@ -83,9 +83,9 @@ function init(){
     }
     else if(Platform.windowsBrowser()){
         ['player', 'player_iptv', 'player_torrent'].forEach(name=>{
-            select(name, {potplayer: 'PotPlayer'}, 'potplayer')
+            select(name, {mpv: 'mpv'}, 'mpv')
             // Migrate previously selected VLC/internal players on Windows only.
-            if(Storage.get(name) !== 'potplayer') Storage.set(name, 'potplayer')
+            if(Storage.get(name) !== 'mpv') Storage.set(name, 'mpv')
         })
     }
     else if(Platform.desktop() && !Platform.macOS()){

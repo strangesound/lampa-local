@@ -13,7 +13,7 @@ function open(data, onExternal, onError){
     let url
     try { url = streamUrl(Torserver.toPlayUrl(data.url)) }
     catch(e) {
-        Noty.show(Lang.selected(['ru']) ? 'Для PotPlayer нужна HTTP-ссылка на видео' : 'PotPlayer requires an HTTP video URL')
+        Noty.show(Lang.selected(['ru']) ? 'Для mpv нужна HTTP-ссылка на видео' : 'mpv requires an HTTP video URL')
         if(onError) onError()
         return
     }
@@ -21,10 +21,10 @@ function open(data, onExternal, onError){
     // Preserve the existing file-picker modal and its controller. Modal.open()
     // is not stackable: opening another modal here orphaned the torrent UI.
     try {
-        window.location.assign('potplayer://' + url)
+        window.location.assign('mpv://' + url)
     }
     catch(e) {
-        Noty.show(Lang.selected(['ru']) ? 'Не удалось открыть PotPlayer. Проверьте разрешение браузера на запуск приложения.' : 'Could not open PotPlayer. Check the browser permission to launch the app.')
+        Noty.show(Lang.selected(['ru']) ? 'Не удалось открыть mpv. Проверьте разрешение браузера на запуск приложения.' : 'Could not open mpv. Check the browser permission to launch the app.')
         if(onError) onError()
         return
     }

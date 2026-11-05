@@ -94,10 +94,16 @@ No private API keys, local deployment addresses, SSH settings, user histories or
 
 ## Windows browser playback
 
-Windows browsers open HTTP video streams directly in **PotPlayer**, without an additional Lampa dialog. Existing VLC/internal player preferences are migrated to PotPlayer, and player selection fields are hidden on Windows. YouTube playback retains its built-in handling.
+Windows browsers send HTTP video streams directly to **mpv** using its native `mpv://` protocol, without an additional Lampa dialog. Existing player preferences are migrated to mpv. macOS/iOS and native desktop app choices are preserved.
 
-The Windows `potplayer://` association must be installed. The browser may still ask permission to open the application; this permission belongs to the browser. The torrent file list stays usable after launching the player or cancelling the browser prompt.
+Register the installed mpv executable once for the current Windows user:
 
-No registry changes, browser extensions or executable downloads are performed. External player progress is not synchronized back to Lampa. macOS/iOS and native desktop app choices are preserved.
+```powershell
+powershell -NoProfile -File deploy/windows/register-mpv.ps1 -PlayerPath "C:\path\to\mpv.exe"
+```
 
-Run `node tests/windows-player.cjs` for Windows defaults, preference migration and handoff regression tests. Actual launch of installed Windows applications requires testing on that PC.
+The script registers only the URL protocol, preserves file associations and backs up an existing user protocol registration in the temporary directory. Use a version with native `mpv://` support; mpv.net is a separate application and is not configured by this script. See the [mpv protocol documentation](https://mpv.io/manual/stable/#protocols).
+
+The browser may ask permission to open mpv. The existing torrent file list remains active when returning or cancelling. The PC must be able to reach the configured TorrServer address. External player progress is not synchronized back to Lampa.
+
+Run `node tests/windows-player.cjs` for Windows defaults, preference migration and handoff regression tests.
