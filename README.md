@@ -94,7 +94,7 @@ No private API keys, local deployment addresses, SSH settings, user histories or
 
 ## Windows browser playback
 
-Windows browsers send HTTP video streams directly to **mpv / mpv.net** using its native `mpv://` protocol, without an additional Lampa dialog. Existing player preferences are migrated to mpv. macOS/iOS and native desktop app choices are preserved.
+Windows browsers send HTTP video streams directly to **mpv / mpv.net** through a small local Windows launcher using `mpv://play/?url=...`, without an additional Lampa dialog. Existing player preferences are migrated to mpv. macOS/iOS and native desktop app choices are preserved.
 
 Register the installed mpv or mpv.net executable once for the current Windows user:
 
@@ -102,7 +102,7 @@ Register the installed mpv or mpv.net executable once for the current Windows us
 powershell -NoProfile -File deploy/windows/register-mpv.ps1 -PlayerPath "C:\path\to\mpv.exe"
 ```
 
-The script registers only the URL protocol, preserves file associations and backs up an existing user protocol registration in the temporary directory. Use a version with native `mpv://` support; mpv.net 7.1.2 with libmpv 0.42 was also verified. Pass the path to `mpvnet.exe` when using mpv.net. See the [mpv protocol documentation](https://mpv.io/manual/stable/#protocols).
+The script compiles `MpvLauncher.cs` into `%LOCALAPPDATA%\LampaPlayer`, registers the URL protocol, preserves file associations and backs up an existing user protocol registration in the temporary directory. Keep both installer files together. Pass the path to `mpvnet.exe` when using mpv.net. The launcher decodes one HTTP(S) URL and passes it directly to the configured player without a command shell. This avoids Windows changing nested protocol URLs or appending a slash to their query parameters. mpv.net 7.1.2 was verified through this complete launch chain.
 
 The browser may ask permission to open mpv. The existing torrent file list remains active when returning or cancelling. The PC must be able to reach the configured TorrServer address. External player progress is not synchronized back to Lampa.
 

@@ -30,7 +30,7 @@ assert.equal(c.result.streamUrl(url),url);
 for(const bad of ['javascript:alert(1)','file:///tmp/test','http://media.example/\n#EXTVLCOPT:test'])assert.throws(()=>c.result.streamUrl(bad));
 // A second click must still work after returning from the system prompt/player.
 for(let i=0;i<2;i++)c.result.open({url},()=>external++,()=>errors++);
-assert.deepEqual(assigned,['mpv://'+encodeURIComponent(url),'mpv://'+encodeURIComponent(url)]);assert.equal(external,2);assert.equal(errors,0);
+assert.deepEqual(assigned,['mpv://play/?url='+encodeURIComponent(url),'mpv://play/?url='+encodeURIComponent(url)]);assert.equal(external,2);assert.equal(errors,0);
 assert.deepEqual(modalState,{active:true,controller:'modal'});
 c.result.open({url:'file:///test'},()=>external++,()=>errors++);
 assert.equal(assigned.length,2);assert.equal(errors,1);
@@ -42,4 +42,4 @@ assert.match(player,/if\(Platform.windowsBrowser\(\) && !Video.verifyTube\(data.
 assert.match(fs.readFileSync(path.join(root,'interaction/settings/component.js'),'utf8'),/!Platform.any\(\) \|\| Platform.windowsBrowser\(\)/);
 console.log('Windows mpv defaults, migration, direct launch, modal preservation and error handling passed.');
 
-assert.equal(decodeURIComponent(new URL(assigned[0]).href.slice('mpv://'.length)),url);
+assert.equal(new URL(assigned[0]).searchParams.get('url'),url);

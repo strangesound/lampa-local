@@ -12,7 +12,12 @@ if (Test-Path $key) {
 New-Item -Path "$key\shell\open\command" -Force | Out-Null
 Set-Item -Path $key -Value 'URL:mpv'
 New-ItemProperty -Path $key -Name 'URL Protocol' -Value '' -PropertyType String -Force | Out-Null
-$command = '"' + $exe + '" -- "%1"'
+$install = Join-Path $env:LOCALAPPDATA 'LampaPlayer'
+New-Item -ItemType Directory -Path $install -Force | Out-Null
+$launcher = Join-Path $install ('LampaMpv-' + (Get-Date -Format yyyyMMddHHmmss) + '.exe')
+Add-Type -Path (Join-Path $PSScriptRoot 'MpvLauncher.cs') -OutputAssembly $launcher -OutputType WindowsApplication
+Set-Content -LiteralPath (Join-Path $install 'player-path.txt') -Value $exe -Encoding UTF8
+$command = '"' + $launcher + '" "%1"'
 Set-Item -Path "$key\shell\open\command" -Value $command
 if ((Get-Item "$key\shell\open\command").GetValue('') -ne $command) { throw 'Protocol verification failed.' }
 Write-Output 'mpv URL handler registered and verified.'
