@@ -21,7 +21,9 @@ function open(data, onExternal, onError){
     // Preserve the existing file-picker modal and its controller. Modal.open()
     // is not stackable: opening another modal here orphaned the torrent UI.
     try {
-        window.location.assign('mpv://' + url)
+        // Encode the entire nested URL: Windows otherwise removes the HTTP colon.
+        // mpv's protocol demuxer decodes it once, preserving query escaping.
+        window.location.assign('mpv://' + encodeURIComponent(url))
     }
     catch(e) {
         Noty.show(Lang.selected(['ru']) ? 'Не удалось открыть mpv. Проверьте разрешение браузера на запуск приложения.' : 'Could not open mpv. Check the browser permission to launch the app.')
