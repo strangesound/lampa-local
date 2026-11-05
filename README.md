@@ -94,15 +94,15 @@ No private API keys, local deployment addresses, SSH settings, user histories or
 
 ## Windows browser playback
 
-Windows browsers send HTTP video streams directly to **mpv** using its native `mpv://` protocol, without an additional Lampa dialog. Existing player preferences are migrated to mpv. macOS/iOS and native desktop app choices are preserved.
+Windows browsers send HTTP video streams directly to **mpv / mpv.net** using its native `mpv://` protocol, without an additional Lampa dialog. Existing player preferences are migrated to mpv. macOS/iOS and native desktop app choices are preserved.
 
-Register the installed mpv executable once for the current Windows user:
+Register the installed mpv or mpv.net executable once for the current Windows user:
 
 ```powershell
 powershell -NoProfile -File deploy/windows/register-mpv.ps1 -PlayerPath "C:\path\to\mpv.exe"
 ```
 
-The script registers only the URL protocol, preserves file associations and backs up an existing user protocol registration in the temporary directory. Use a version with native `mpv://` support; mpv.net is a separate application and is not configured by this script. See the [mpv protocol documentation](https://mpv.io/manual/stable/#protocols).
+The script registers only the URL protocol, preserves file associations and backs up an existing user protocol registration in the temporary directory. Use a version with native `mpv://` support; mpv.net 7.1.2 with libmpv 0.42 was also verified. Pass the path to `mpvnet.exe` when using mpv.net. See the [mpv protocol documentation](https://mpv.io/manual/stable/#protocols).
 
 The browser may ask permission to open mpv. The existing torrent file list remains active when returning or cancelling. The PC must be able to reach the configured TorrServer address. External player progress is not synchronized back to Lampa.
 

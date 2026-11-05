@@ -1,7 +1,7 @@
 param([Parameter(Mandatory=$true)][string]$PlayerPath)
 $ErrorActionPreference = 'Stop'
 $exe = (Resolve-Path -LiteralPath $PlayerPath).Path
-if ([IO.Path]::GetFileName($exe) -ne 'mpv.exe') { throw 'Select mpv.exe with native mpv:// support.' }
+if ([IO.Path]::GetFileName($exe) -notin @('mpv.exe', 'mpvnet.exe')) { throw 'Select mpv.exe or mpvnet.exe with native mpv:// support.' }
 $key = 'HKCU:\Software\Classes\mpv'
 # Register only this URL protocol for the current user; file associations stay intact.
 if (Test-Path $key) {
